@@ -3,7 +3,7 @@
 ## 本主题移植于十三月的博客主题。部分有点些许的改动！
 ***
 ### 首页：
-![首页.png](https://i.loli.net/2019/11/03/ilDjuIXZxrRNT4g.png)
+![~7KP_`XPWJKHNI`BV@GM3DB.png](https://i.loli.net/2019/11/03/KrqD12xfaoNdP6F.png)
 ### 内容页：
 ![内容页.png](https://i.loli.net/2019/11/03/znymKMq8Cv6tugd.png)
 ### 归档页：
