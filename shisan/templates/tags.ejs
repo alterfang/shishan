@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+		<%- include('./includes/head', { siteTitle: themeConfig.siteName }) %>
+<body class="page page-id-16 page-template page-template-template-links page-template-template-links-php">
+	<!--加入跟随滑动的顶部-->
+	<%- include('./includes/header') %>
+	<%- include('./includes/nav') %>
+	<!--跟随滑动的顶部结束-->
+	<div class="surface-content">    <main class="main-content">
+        <section class="section-body">
+                            <header class="section-header u-textAlignCenter">
+                    <h2 class="grap--h2">标签</h2>
+                </header>
+                <div class="grap">
+
+                    <ul class="friend">
+							<% site.tags.forEach(function(tag) { %>
+					<li><a href="<%= tag.link %>" target="_blank" title="<%= tag.name %>" ><%= tag.name %></a></li>		 <% }); %>          </ul>
+                </div>
+                   </section>
+    </main>
+</div>
+<%- include('./includes/footer') %>
+</body>
+</html>

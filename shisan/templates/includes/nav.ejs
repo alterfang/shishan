@@ -1,0 +1,10 @@
+	<div class="site-navigation-wrapper">
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<ul class="primary-nav">
+                    <% menus.forEach(function (menu) { %>
+				<li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30"><a title="<%= menu.name %>" href="<%= menu.link %>"><%= menu.name %></a></li>
+                <% }); %>
+	
+			</ul>
+		</nav>			
+	</div>

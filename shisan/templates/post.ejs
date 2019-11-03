@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<%- include('./includes/head', { siteTitle: `${post.title} | ${themeConfig.siteName}` }) %>
+<body class="single single-post postid-3788 single-format-standard">
+	<!--加入跟随滑动的顶部-->
+	<%- include('./includes/header') %>
+	<%- include('./includes/nav') %>
+	<!--跟随滑动的顶部结束-->
+	<div class="surface-content">    <main class="main-content">
+        <section class="section-body">
+                            <header class="section-header u-textAlignCenter">
+                    <h2 class="grap--h2"><%= post.title %></h2>
+                    <div class="block-postMetaWrap">
+                        <time><%= post.dateFormat %></time>
+                    </div>
+                </header>
+                <div class="grap">
+					<% if (themeConfig.showFeatureImage && post.feature) { %>  <p class="with-img"><img width="1139" height="759" src="<%= post.feature %>" class="attachment-full size-full wp-post-image" alt="<%= post.title %>" /></p><% } %>
+					<%- post.content %>
+                </div>
+
+                <div class="post--keywords" itemprop="keywords">
+					<% post.tags.forEach(function(tag) { %> <a href="<%= tag.link %>" class="post--keyword" data-title="<%= tag.name %>" data-type="post_tag" data-term-id="39"><%= tag.name %></a> <% }); %>          </div>
+
+
+
+        <% if (typeof commentSetting !== 'undefined' && commentSetting.showComment) { %>
+          <% if (commentSetting.commentPlatform === 'gitalk') { %>
+            <%- include('./includes/gitalk') %>
+          <% } %>
+
+          <% if (commentSetting.commentPlatform === 'disqus') { %>
+            <%- include('./includes/disqus') %>
+          <% } %>
+        <% } %>              </section>
+    </main>
+</div>
+<%- include('./includes/footer') %>
+</body>
+</html>

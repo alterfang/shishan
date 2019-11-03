@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+        <%- include('./includes/head', { siteTitle: themeConfig.siteName }) %>
+<body class="home blog">
+	<!--加入跟随滑动的顶部-->
+	<%- include('./includes/header') %>
+    <%- include('./includes/nav') %>
+	<!--跟随滑动的顶部结束-->
+	<!--大屏banner开始-->
+	
+	<div class="site-banner u-textAlignCenter hasImage" style="background-image:url(<% if (site.customConfig.indeximg) { %> <%= site.customConfig.indeximg %> <% } %>)">
+		<div class="fade-cover"></div>
+		<div class="banner-txt">
+			<h2><%= themeConfig.siteName %></h2>
+		</div>
+		<div class="banner-txt">
+			<p><%- themeConfig.siteDescription %></p>
+		</div>	
+	</div>
+	<!--大屏banner结束-->
+	<div class="site-main">
+	<div class="surface-content">    <main class="main-content">
+        <section class="blockGroup">
+                <% posts.forEach(function(post) { %>
+            <article class="block block--inset block--list">
+    <h2 class="block-title post-featured" itemprop="headline">
+        <a href="<%= post.link %>"><%= post.title %></a>
+    </h2>
+    <div class="block-postMetaWrap u-textAlignCenter">
+        <time><%= post.dateFormat %></time>
+    </div>
+    <div class="block-snippet block-snippet--subtitle grap" itemprop="about">
+            <% if (themeConfig.showFeatureImage && post.feature) { %>
+                    <p class="with-img"><img width="1139" height="759" src="<%= post.feature %>" class="attachment-full size-full wp-post-image" alt="<%= post.title %>" /></p>
+                    <% } %>
+                    <%- post.abstract %>
+                <p class="u-textAlignCenter"><a class="more-link" href="<%= post.link %>" title="<%= post.title %>">READ MORE</a></p>
+    </div>
+    <div class="block-footer">
+        In <% post.tags.forEach(function(tag) { %> <a href="<%= tag.link %>" rel="category tag"><%= tag.name %></a>.  <% }); %>
+        <div class="block-footer-inner">
+                <%= post.stats.text %> .
+        </div>
+    </div>
+</article>
+<% }); %>
+</section>
+<% if (pagination.next) { %>
+        <nav class="posts-nav u-textAlignCenter">
+            <button href="<%= pagination.next %>" class="button button--primary" >点击查看更多</button>   
+            </nav>
+             <% } %>
+    </main>
+</div></div>
+<script type="text/javascript">
+//点击加载更多
+jQuery(document).ready(function($) {
+    //点击下一页的链接(即那个a标签)
+    $(' .button').click(function() {
+        $this = $(this);
+        $this.addClass('loading').text('正在努力加载'); //给a标签加载一个loading的class属性，用来添加加载效果
+        var href = $this.attr('href'); //获取下一页的链接地址
+        if (href != undefined) { //如果地址存在
+            $.ajax({ //发起ajax请求
+                url: href,
+                //请求的地址就是下一页的链接
+                type: 'get',
+                //请求类型是get
+                error: function(request) {
+                    //如果发生错误怎么处理
+                },
+                success: function(data) { //请求成功
+                    $this.removeClass('loading').text('点击查看更多'); //移除loading属性
+                    var $res = $(data).find('.block--list '); //从数据中挑出文章数据，请根据实际情况更改
+                    $('.blockGroup').append($res.fadeIn(500)); //将数据加载加进posts-loop的标签中。
+                    var newhref = $(data).find(' .button').attr('href'); //找出新的下一页链接
+                    if (newhref != undefined) {
+                        $('.button').attr('href', newhref);
+                    } else {
+                        $('.button').remove(); //如果没有下一页了，隐藏
+                    }
+                }
+            });
+        }
+        return false;
+    });
+});
+</script>
+<%- include('./includes/footer') %>
+</body>
+</html>
